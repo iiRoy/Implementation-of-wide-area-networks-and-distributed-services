@@ -10,10 +10,6 @@ Se aproxima π usando la identidad:
 
 $$\pi = \int_0^1 \frac{4}{1+x^2} \, dx$$
 
-La integral se discretiza en `1,900,000,000` pasos aplicando la **regla del rectángulo con punto medio**:
-
-$$\pi \approx \sum_{i=0}^{N-1} \frac{4}{1 + \left(\frac{i + 0.5}{N}\right)^2} \cdot \frac{1}{N}$$
-
 ---
 
 ## Paralelización
