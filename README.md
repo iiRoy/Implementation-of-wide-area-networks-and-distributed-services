@@ -4,6 +4,12 @@ Proyecto de benchmark diseñado para medir y comparar el rendimiento de distinto
 
 ---
 
+##  Wiki
+
+Para documentación extendida, análisis detallado y notas de cada experimento, consulta la [Wiki del proyecto](https://github.com/iiRoy/Implementation-of-wide-area-networks-and-distributed-services/wiki/%5BEXP%5D-%E2%80%90-Rendimiento-de-comparaci%C3%B3n-de-Hilos-en-Paralelo).
+
+---
+
 ## ¿Qué hace este proyecto?
 
 Aproxima el valor de π mediante integración numérica, paralelizada con **OpenMP**. Al ser una tarea puramente CPU-bound y matemáticamente simple, sirve como métrica limpia para evaluar cómo escala el rendimiento de un sistema al aumentar el número de hilos.
