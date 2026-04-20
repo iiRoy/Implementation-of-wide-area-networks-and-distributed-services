@@ -6,8 +6,8 @@ extern void inv_img(const char *mask, const char *path){
     FILE *image, *outputImage, *lecturas, *fptr;
 
     char output_path[100];
-    snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", mask);
-    printf("%s\n", output_path);
+    // snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", mask);
+    // printf("%s\n", output_path);
 
     image = fopen(path,"rb");
     outputImage = fopen(output_path, "wb");
@@ -40,7 +40,7 @@ extern void inv_img(const char *mask, const char *path){
 
     int total_pixels = ancho * alto;
 
-    for (j = 0; j < total_pixels; j++) {
+        for (j = 0; j < total_pixels; j++) {
         b = fgetc(image);
         g = fgetc(image);
         r = fgetc(image);
@@ -53,16 +53,20 @@ extern void inv_img(const char *mask, const char *path){
         arr_in_r[j] = pixel;
     }
 
-    printf("Lectura de datos: %d\n", j*3);
-    printf("Elementos faltantes: %d\n", tam - (j*3));
+    // printf("Lectura de datos: %d\n", j*3);
+    // printf("Elementos faltantes: %d\n", tam - (j*3));
 
-    for(int i = 0; i < ancho*alto; i++){
+    #pragma omp parallel
+    {
+        #pragma omp for
 
-        fputc(arr_in_b[(ancho * alto - 1) - i], outputImage);
-        fputc(arr_in_g[(ancho * alto - 1) - i], outputImage);
-        fputc(arr_in_r[(ancho * alto - 1) - i], outputImage);
+        for(int i = 0; i < ancho*alto; i++){
+
+            fputc(arr_in_b[(ancho * alto - 1) - i], outputImage);
+            fputc(arr_in_g[(ancho * alto - 1) - i], outputImage);
+            fputc(arr_in_r[(ancho * alto - 1) - i], outputImage);
+        }
     }
-
     free(arr_in_b);
     free(arr_in_g);
     free(arr_in_r);
@@ -75,8 +79,8 @@ extern void inv_img_color(const char *mask, const char *path){
     FILE *image, *outputImage, *lecturas, *fptr;
 
     char output_path[100];
-    snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", mask);
-    printf("%s\n", output_path);
+    // snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", mask);
+    // printf("%s\n", output_path);
 
     image = fopen(path,"rb");
     outputImage = fopen(output_path, "wb");
@@ -121,8 +125,8 @@ extern void inv_img_color(const char *mask, const char *path){
         arr_in_r[j] = r;
     }
 
-    printf("Lectura de datos: %d\n", j*3);
-    printf("Elementos faltantes: %d\n", tam - (j*3));
+    // printf("Lectura de datos: %d\n", j*3);
+    // printf("Elementos faltantes: %d\n", tam - (j*3));
 
     for(int i = 0; i < ancho*alto; i++){
 
@@ -143,8 +147,8 @@ extern void fliph(const char *mask, const char *path){
     FILE *image, *outputImage, *lecturas, *fptr;
 
     char output_path[100];
-    snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", mask);
-    printf("%s\n", output_path);
+    // snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", mask);
+    // printf("%s\n", output_path);
 
     image = fopen(path,"rb");
     outputImage = fopen(output_path, "wb");
@@ -214,8 +218,8 @@ extern void flipv(const char *mask, const char *path){
     FILE *image, *outputImage, *lecturas, *fptr;
 
     char output_path[100];
-    snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", mask);
-    printf("%s\n", output_path);
+    // snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", mask);
+    // printf("%s\n", output_path);
 
     image = fopen(path,"rb");
     outputImage = fopen(output_path, "wb");
@@ -285,8 +289,8 @@ extern void flipv_color(const char *mask, const char *path){
     FILE *image, *outputImage, *lecturas, *fptr;
 
     char output_path[100];
-    snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", mask);
-    printf("%s\n", output_path);
+    // snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", mask);
+    // printf("%s\n", output_path);
 
     image = fopen(path,"rb");
     outputImage = fopen(output_path, "wb");
@@ -331,8 +335,8 @@ extern void flipv_color(const char *mask, const char *path){
         arr_in_r[j] = r;
     }
 
-    printf("Lectura de datos: %d\n", j*3);
-    printf("Elementos faltantes: %d\n", tam - (j*3));
+    // printf("Lectura de datos: %d\n", j*3);
+    // printf("Elementos faltantes: %d\n", tam - (j*3));
 
     for (int row = alto - 1; row >= 0; row--) {
         for (int column = 0; column < ancho; column++) {
@@ -355,8 +359,8 @@ extern void fliph_color(const char *mask, const char *path){
     FILE *image, *outputImage, *lecturas, *fptr;
 
     char output_path[100];
-    snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", mask);
-    printf("%s\n", output_path);
+    // snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", mask);
+    // printf("%s\n", output_path);
 
     image = fopen(path,"rb");
     outputImage = fopen(output_path, "wb");
@@ -401,8 +405,8 @@ extern void fliph_color(const char *mask, const char *path){
         arr_in_r[j] = r;
     }
 
-    printf("Lectura de datos: %d\n", j*3);
-    printf("Elementos faltantes: %d\n", tam - (j*3));
+    // printf("Lectura de datos: %d\n", j*3);
+    // printf("Elementos faltantes: %d\n", tam - (j*3));
 
     for(int row = 0; row < alto ; row++){
         for (int column = ancho - 1; column >= 0; column--) {
@@ -442,7 +446,7 @@ void blur(const char *input_path, const char *name_output, int kernel_size)
 {
     FILE *image, *outputImage;
     char output_path[100];
-    snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", name_output);
+    // snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", name_output);
     image = fopen(input_path, "rb");
     outputImage = fopen(output_path, "wb");
 
@@ -560,10 +564,10 @@ void blur(const char *input_path, const char *name_output, int kernel_size)
         return;
     }
 
-    fprintf(outputLog, "Función: blur byn, con %s\n", input_path);
-    fprintf(outputLog, "Localidades totales leídas: %d\n", width * height);
-    fprintf(outputLog, "Localidades totales escritas: %d\n", width * height);
-    fprintf(outputLog, "-------------------------------------\n");
+    // fprintf(outputLog, "Función: blur byn, con %s\n", input_path);
+    // fprintf(outputLog, "Localidades totales leídas: %d\n", width * height);
+    // fprintf(outputLog, "Localidades totales escritas: %d\n", width * height);
+    // fprintf(outputLog, "-------------------------------------\n");
     fclose(outputLog);
 
     free(input_rows);
@@ -577,7 +581,7 @@ void blur_color(const char *input_path, const char *name_output, int kernel_size
 {
     FILE *image, *outputImage;
     char output_path[100];
-    snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", name_output);
+    // snprintf(output_path, sizeof(output_path), "./Results/%s.bmp", name_output);
     image = fopen(input_path, "rb");
     outputImage = fopen(output_path, "wb");
 
@@ -689,10 +693,10 @@ void blur_color(const char *input_path, const char *name_output, int kernel_size
         return;
     }
 
-    fprintf(outputLog, "Función: desenfoque, con %s\n", input_path);
-    fprintf(outputLog, "Localidades totales leídas: %d\n", width * height);
-    fprintf(outputLog, "Localidades totales escritas: %d\n", width * height);
-    fprintf(outputLog, "-------------------------------------\n");
+    // fprintf(outputLog, "Función: desenfoque, con %s\n", input_path);
+    // fprintf(outputLog, "Localidades totales leídas: %d\n", width * height);
+    // fprintf(outputLog, "Localidades totales escritas: %d\n", width * height);
+    // fprintf(outputLog, "-------------------------------------\n");
     fclose(outputLog);
     free(input_rows);
     free(temp_rows);

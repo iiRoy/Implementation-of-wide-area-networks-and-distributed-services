@@ -3,7 +3,7 @@
 static long num_pasos=1.9e9;
 double paso;
 //#define NUM_THREADS 1000
-#define NUM_THREADS 5
+#define NUM_THREADS 450
 void main(){
  int i, nthreads;
  double pi, sum[NUM_THREADS];

@@ -5,8 +5,8 @@
 //sudo auto-cpufreq --turbo active
 
 //#define NUM_THREADS 6
-//#define NUM_THREADS 12
-#define NUM_THREADS 18
+#define NUM_THREADS 100
+// #define NUM_THREADS 18
 
 int main(){
     /*

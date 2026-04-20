@@ -1,0 +1,384 @@
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image3.bmp
+Localidades totales leídas: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+Función: desenfoque, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: blur byn, con ./Assets/Image1.bmp
+Localidades totales leídas: 16084992
+Localidades totales escritas: 16084992
+-------------------------------------
+Función: desenfoque, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+Función: blur byn, con ./Assets/Image2.bmp
+Localidades totales leídas: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
