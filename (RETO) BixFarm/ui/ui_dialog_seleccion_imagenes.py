@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'dialog_seleccion_imagenes.ui'
+# Form implementation generated from reading ui file 'editables/dialog_seleccion_imagenes.ui'
 #
 # Created by: PyQt6 UI code generator 6.11.0
 #

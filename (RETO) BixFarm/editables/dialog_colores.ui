@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DialogColores</class>
+ <widget class="QDialog" name="DialogColores">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>460</width>
+    <height>350</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>460</width>
+    <height>350</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Selección de Colores</string>
+  </property>
+  <property name="accessibleName">
+   <string>Selección de Colores</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog#DialogColores, QWidget {
+    background-color: #081120;
+    color: #e6edf7;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 11pt;
+}
+
+QWidget#dlgMainContainer {
+    background-color: transparent;
+}
+
+QWidget#dlgTitleCard,
+QFrame#dlgButtonsRow,
+QFrame#dlgChecksRow {
+    background-color: #111c2e;
+    border: 1px solid #24344c;
+    border-radius: 16px;
+}
+
+/* Título */
+QLabel#lblDialogTitulo {
+    color: #f8fbff;
+    font-size: 16pt;
+    font-weight: 700;
+    background: transparent;
+    border: none;
+}
+
+/* Descripción */
+QLabel#lblDialogDescripcion {
+    color: #91a4bf;
+    font-size: 10.5pt;
+    background: transparent;
+    border: none;
+}
+
+/* Checkboxes */
+QCheckBox {
+    color: #e6edf7;
+    spacing: 8px;
+    background: transparent;
+}
+
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid #385174;
+    background-color: #0a1423;
+}
+
+QCheckBox::indicator:hover {
+    border: 1px solid #4a8cff;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #4a8cff;
+    border: 1px solid #4a8cff;
+}
+
+/* Botones */
+QPushButton {
+    background-color: #4a8cff;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-weight: 600;
+    min-height: 22px;
+}
+
+QPushButton:hover {
+    background-color: #3a7af0;
+}
+
+QPushButton:pressed {
+    background-color: #2d67d0;
+}
+
+/* Botón cancelar diferente */
+QPushButton#btnCancelarColor {
+    background-color: #1a2638;
+    border: 1px solid #324863;
+    color: #d7e2f0;
+}
+
+QPushButton#btnCancelarColor:hover {
+    background-color: #22324a;
+}
+
+/* Separadores visuales suaves */
+QFrame {
+    color: #24344c;
+}</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QWidget" name="dlgMainContainer" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QWidget" name="dlgTitleCard" native="true">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QLabel" name="lblDialogTitulo">
+           <property name="font">
+            <font>
+             <family>Segoe UI</family>
+             <pointsize>16</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Selección de Colores</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lblDialogDescripcion">
+           <property name="text">
+            <string>Activa o desactiva canales de color. Si activas Gris, los canales activos se convierten a escala de grises.</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignCenter</set>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="dlgChecksRow">
+        <property name="frameShape">
+         <enum>QFrame::Shape::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="3">
+          <widget class="QCheckBox" name="chkAzul">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox {
+    color: #e6edf7;
+    spacing: 8px;
+    background: transparent;
+}
+
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid #385174;
+    background-color: #0a1423;
+}
+
+QCheckBox::indicator:hover {
+    border: 1px solid #60a5fa;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #3b82f6;
+    border: 1px solid #3b82f6;
+}</string>
+           </property>
+           <property name="text">
+            <string>Azul</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QCheckBox" name="chkVerde">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox {
+    color: #e6edf7;
+    spacing: 8px;
+    background: transparent;
+}
+
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid #385174;
+    background-color: #0a1423;
+}
+
+QCheckBox::indicator:hover {
+    border: 1px solid #4ade80;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #22c55e;
+    border: 1px solid #22c55e;
+}</string>
+           </property>
+           <property name="text">
+            <string>Verde</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QCheckBox" name="chkRojo">
+           <property name="font">
+            <font>
+             <family>Segoe UI</family>
+             <pointsize>11</pointsize>
+             <italic>false</italic>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QCheckBox {
+    color: #e6edf7;
+    spacing: 8px;
+    background: transparent;
+}
+
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid #385174;
+    background-color: #0a1423;
+}
+
+QCheckBox::indicator:hover {
+    border: 1px solid #ff6b6b;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #ef4444;
+    border: 1px solid #ef4444;
+}</string>
+           </property>
+           <property name="text">
+            <string>Rojo</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="chkGris">
+           <property name="styleSheet">
+            <string notr="true">QCheckBox {
+    color: #e6edf7;
+    spacing: 8px;
+    background: transparent;
+}
+
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid #385174;
+    background-color: #0a1423;
+}
+
+QCheckBox::indicator:hover {
+    border: 1px solid #a3a3a3;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #9ca3af;
+    border: 1px solid #9ca3af;
+}</string>
+           </property>
+           <property name="text">
+            <string>Escala de Gris</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="dlgButtonsRow">
+        <property name="accessibleName">
+         <string>Selección de Colores</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Shape::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="btnCancelarColor">
+           <property name="text">
+            <string>Cancelar</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnAplicarColor">
+           <property name="text">
+            <string>Aplicar</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

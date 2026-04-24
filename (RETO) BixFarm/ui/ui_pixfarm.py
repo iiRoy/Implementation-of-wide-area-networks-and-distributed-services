@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'PixFarm.ui'
+# Form implementation generated from reading ui file 'editables/PixFarm.ui'
 #
 # Created by: PyQt6 UI code generator 6.11.0
 #
@@ -329,7 +329,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.lblLogoInstitucion = QtWidgets.QLabel(parent=self.rightHeaderContainer)
-        self.lblLogoInstitucion.setPixmap(QtGui.QPixmap("../assets/Logo_EIC.png"))
+        self.lblLogoInstitucion.setPixmap(QtGui.QPixmap("editables/../assets/Logo_EIC.png"))
         self.lblLogoInstitucion.setScaledContents(True)
         self.lblLogoInstitucion.setOpenExternalLinks(False)
         self.lblLogoInstitucion.setObjectName("lblLogoInstitucion")
@@ -657,7 +657,7 @@ class Ui_MainWindow(object):
         self.lblLogoInstitucionAbout.setMinimumSize(QtCore.QSize(40, 40))
         self.lblLogoInstitucionAbout.setMaximumSize(QtCore.QSize(40, 40))
         self.lblLogoInstitucionAbout.setText("")
-        self.lblLogoInstitucionAbout.setPixmap(QtGui.QPixmap("../assets/logo_tec.png"))
+        self.lblLogoInstitucionAbout.setPixmap(QtGui.QPixmap("editables/../assets/logo_tec.png"))
         self.lblLogoInstitucionAbout.setScaledContents(True)
         self.lblLogoInstitucionAbout.setObjectName("lblLogoInstitucionAbout")
         self.horizontalLayout_9.addWidget(self.lblLogoInstitucionAbout)
