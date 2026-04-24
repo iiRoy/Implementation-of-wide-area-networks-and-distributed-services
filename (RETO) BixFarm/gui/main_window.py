@@ -1,10 +1,10 @@
-from dataclasses import dataclass
-from pathlib import Path
 import shutil
 import subprocess
 import time
+from dataclasses import dataclass
+from pathlib import Path
 
-from PyQt6.QtCore import Qt, QSize
+from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import (
     QFileDialog,
@@ -13,8 +13,8 @@ from PyQt6.QtWidgets import (
     QMessageBox,
     QTableWidgetItem,
 )
-
 from ui.ui_pixfarm import Ui_MainWindow
+
 from gui.dialog_colores import DialogColores
 from gui.dialog_seleccion_imagenes import DialogSeleccionImagenes
 
@@ -25,8 +25,8 @@ class Rule:
     use_g: bool
     use_b: bool
     use_gray: bool
-    effect: str   # "inv" o "des"
-    value: str    # texto del giro o kernel como string
+    effect: str  # "inv" o "des"
+    value: str  # texto del giro o kernel como string
 
 
 class MainWindow(QMainWindow):
@@ -67,11 +67,21 @@ class MainWindow(QMainWindow):
         # Abrir selector de carpeta al hacer click en la ruta
         self.ui.txtRutaGuardado.mousePressEvent = self._abrir_selector_ruta_guardado
 
+        self.ui.txtNumberThreads.setMinimum(1)
+        self.ui.txtNumberThreads.setMaximum(1000000000)
+        self.ui.txtNumberThreads.setValue(12)
+
         self.ui.rulesTable.setColumnCount(4)
-        self.ui.rulesTable.setHorizontalHeaderLabels(["Color", "Efecto", "Valor", "Resumen"])
+        self.ui.rulesTable.setHorizontalHeaderLabels(
+            ["Color", "Efecto", "Valor", "Resumen"]
+        )
         self.ui.rulesTable.verticalHeader().setVisible(False)
-        self.ui.rulesTable.setSelectionBehavior(self.ui.rulesTable.SelectionBehavior.SelectRows)
-        self.ui.rulesTable.setSelectionMode(self.ui.rulesTable.SelectionMode.SingleSelection)
+        self.ui.rulesTable.setSelectionBehavior(
+            self.ui.rulesTable.SelectionBehavior.SelectRows
+        )
+        self.ui.rulesTable.setSelectionMode(
+            self.ui.rulesTable.SelectionMode.SingleSelection
+        )
         self.ui.rulesTable.setAlternatingRowColors(True)
         self.ui.rulesTable.horizontalHeader().setStretchLastSection(True)
 
@@ -83,7 +93,9 @@ class MainWindow(QMainWindow):
         self.ui.btnLimpiarLista.clicked.connect(self.limpiar_lista_imagenes)
 
         self.ui.btnSeleccionColor.clicked.connect(self.abrir_dialogo_colores)
-        self.ui.btnSeleccionarImagenesDestino.clicked.connect(self.abrir_dialogo_imagenes)
+        self.ui.btnSeleccionarImagenesDestino.clicked.connect(
+            self.abrir_dialogo_imagenes
+        )
 
         self.ui.btnAgregarRegla.clicked.connect(self.agregar_regla)
         self.ui.btnEditarRegla.clicked.connect(self.editar_regla)
@@ -96,7 +108,9 @@ class MainWindow(QMainWindow):
         self.ui.cmbGiro.currentTextChanged.connect(self._actualizar_preview_nombre)
         self.ui.spinKernel.valueChanged.connect(self._actualizar_preview_nombre)
 
-        self.ui.rulesTable.itemSelectionChanged.connect(self._cargar_regla_seleccionada_en_editor)
+        self.ui.rulesTable.itemSelectionChanged.connect(
+            self._cargar_regla_seleccionada_en_editor
+        )
 
     # -----------------------------
     # CARGA Y GESTIÓN DE IMÁGENES
@@ -154,7 +168,9 @@ class MainWindow(QMainWindow):
     def eliminar_imagenes_seleccionadas(self):
         items = self.ui.listImagenes.selectedItems()
         if not items:
-            QMessageBox.information(self, "Aviso", "Selecciona una o más imágenes para eliminarlas.")
+            QMessageBox.information(
+                self, "Aviso", "Selecciona una o más imágenes para eliminarlas."
+            )
             return
 
         paths_to_remove = {item.data(Qt.ItemDataRole.UserRole) for item in items}
@@ -164,7 +180,9 @@ class MainWindow(QMainWindow):
             self.ui.listImagenes.takeItem(row)
 
         self.loaded_images = [p for p in self.loaded_images if p not in paths_to_remove]
-        self.selected_images = [p for p in self.selected_images if p not in paths_to_remove]
+        self.selected_images = [
+            p for p in self.selected_images if p not in paths_to_remove
+        ]
 
         self._actualizar_estado_imagenes()
         self._actualizar_label_imagenes_destino()
@@ -255,7 +273,9 @@ class MainWindow(QMainWindow):
         rule = self._leer_regla_desde_editor()
 
         if rule in self.rules:
-            QMessageBox.critical(self, "Error", "La regla ya existe y no se puede repetir.")
+            QMessageBox.critical(
+                self, "Error", "La regla ya existe y no se puede repetir."
+            )
             return
 
         self.rules.append(rule)
@@ -273,7 +293,9 @@ class MainWindow(QMainWindow):
 
         for idx, existing in enumerate(self.rules):
             if idx != row and existing == new_rule:
-                QMessageBox.critical(self, "Error", "La regla editada duplicaría una regla existente.")
+                QMessageBox.critical(
+                    self, "Error", "La regla editada duplicaría una regla existente."
+                )
                 return
 
         self.rules[row] = new_rule
@@ -283,7 +305,9 @@ class MainWindow(QMainWindow):
     def eliminar_regla(self):
         selected_rows = self._selected_rule_rows()
         if not selected_rows:
-            QMessageBox.information(self, "Aviso", "Selecciona una regla para eliminar.")
+            QMessageBox.information(
+                self, "Aviso", "Selecciona una regla para eliminar."
+            )
             return
 
         for row in sorted(selected_rows, reverse=True):
@@ -294,7 +318,12 @@ class MainWindow(QMainWindow):
         self._actualizar_preview_nombre()
 
     def _selected_rule_rows(self):
-        rows = sorted({index.row() for index in self.ui.rulesTable.selectionModel().selectedRows()})
+        rows = sorted(
+            {
+                index.row()
+                for index in self.ui.rulesTable.selectionModel().selectedRows()
+            }
+        )
         return rows
 
     def _cargar_regla_seleccionada_en_editor(self):
@@ -326,7 +355,9 @@ class MainWindow(QMainWindow):
         self.ui.rulesTable.setRowCount(len(self.rules))
 
         for row, rule in enumerate(self.rules):
-            color_key = self.build_color_key(rule.use_r, rule.use_g, rule.use_b, rule.use_gray)
+            color_key = self.build_color_key(
+                rule.use_r, rule.use_g, rule.use_b, rule.use_gray
+            )
             effect_text = "Invertir imagen" if rule.effect == "inv" else "Desenfocado"
             value_text = rule.value
             resumen = self.build_rule_summary(rule)
@@ -341,7 +372,9 @@ class MainWindow(QMainWindow):
         self._actualizar_preview_nombre()
 
     def build_rule_summary(self, rule: Rule) -> str:
-        color_key = self.build_color_key(rule.use_r, rule.use_g, rule.use_b, rule.use_gray)
+        color_key = self.build_color_key(
+            rule.use_r, rule.use_g, rule.use_b, rule.use_gray
+        )
         if rule.effect == "inv":
             return f"{color_key} | Invertir | {rule.value}"
         return f"{color_key} | Desenfoque | Kernel {rule.value}"
@@ -359,7 +392,9 @@ class MainWindow(QMainWindow):
         return f"{base}-G" if use_gray else base
 
     def build_output_name(self, base_name: str, rule: Rule):
-        color_key = self.build_color_key(rule.use_r, rule.use_g, rule.use_b, rule.use_gray)
+        color_key = self.build_color_key(
+            rule.use_r, rule.use_g, rule.use_b, rule.use_gray
+        )
         effect_key = "INV" if rule.effect == "inv" else "DES"
 
         if rule.effect == "inv":
@@ -411,27 +446,41 @@ class MainWindow(QMainWindow):
             raise FileNotFoundError(
                 f"No se encontró el ejecutable en: {executable}\n"
                 "Compílalo primero, por ejemplo:\n"
-                "gcc func/para_image.c -o func/para_image"
+                "gcc func/para_image.c -o func/para_image -fopenmp"
             )
+
+        num_threads = int(self.ui.txtNumberThreads.value())
 
         cmd = [
             str(executable),
-            "--input", str(image_path),
-            "--output", output_name,
-            "--effect", rule.effect,
-            "--value", str(self.effect_value_to_c(rule)),
-            "--r", str(int(rule.use_r)),
-            "--g", str(int(rule.use_g)),
-            "--b", str(int(rule.use_b)),
-            "--gray", str(int(rule.use_gray)),
+            "--input",
+            str(image_path),
+            "--output",
+            output_name,
+            "--effect",
+            rule.effect,
+            "--value",
+            str(self.effect_value_to_c(rule)),
+            "--r",
+            str(int(rule.use_r)),
+            "--g",
+            str(int(rule.use_g)),
+            "--b",
+            str(int(rule.use_b)),
+            "--gray",
+            str(int(rule.use_gray)),
+            "--threads",
+            str(num_threads),
         ]
 
-        return subprocess.run(
+        result = subprocess.run(
             cmd,
             cwd=self.project_root,
             capture_output=True,
             text=True,
         )
+
+        return result
 
     def ejecutar_trabajos(self):
         if not self.rules:
@@ -442,7 +491,9 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, "Aviso", "No hay imágenes seleccionadas.")
             return
 
-        output_dir = Path(self.ui.txtRutaGuardado.text().strip() or self.default_output_dir)
+        output_dir = Path(
+            self.ui.txtRutaGuardado.text().strip() or self.default_output_dir
+        )
         output_dir.mkdir(parents=True, exist_ok=True)
 
         start = time.perf_counter()
@@ -474,7 +525,9 @@ class MainWindow(QMainWindow):
                         shutil.move(str(generated_file), str(final_file))
                     generados.append(str(final_file))
                 else:
-                    errores.append(f"No se encontró el archivo generado para {output_name}")
+                    errores.append(
+                        f"No se encontró el archivo generado para {output_name}"
+                    )
 
         elapsed = time.perf_counter() - start
         self.ui.txtTiempoEjecucion.setText(f"{elapsed:.4f} s")
@@ -485,7 +538,7 @@ class MainWindow(QMainWindow):
             QMessageBox.information(
                 self,
                 "Éxito",
-                f"Se procesaron correctamente {len(generados)} archivo(s)."
+                f"Se procesaron correctamente {len(generados)} archivo(s).",
             )
 
     # -----------------------------

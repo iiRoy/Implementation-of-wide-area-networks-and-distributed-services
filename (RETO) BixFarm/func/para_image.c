@@ -4,35 +4,7 @@
 #include <omp.h>
 #include "./lib/imgTrans.h"
 
-#define NUM_THREADS 1000
-
-static void print_args(
-    const char *input,
-    const char *effect,
-    const char *output_inv,
-    const char *output_des,
-    int value_inv,
-    int value_des,
-    int use_r,
-    int use_g,
-    int use_b,
-    int use_gray
-) {
-    printf("========== PixFarm / OpenMP ==========\n");
-    printf("input      : %s\n", input);
-    printf("effect     : %s\n", effect);
-    printf("output_inv : %s\n", output_inv);
-    printf("output_des : %s\n", output_des);
-    printf("value_inv  : %d\n", value_inv);
-    printf("value_des  : %d\n", value_des);
-    printf("use_r      : %d\n", use_r);
-    printf("use_g      : %d\n", use_g);
-    printf("use_b      : %d\n", use_b);
-    printf("use_gray   : %d\n", use_gray);
-    printf("threads    : %d\n", NUM_THREADS);
-    printf("======================================\n");
-    fflush(stdout);
-}
+#define DEFAULT_THREADS 12
 
 int main(int argc, char *argv[]) {
     char input[512] = {0};
@@ -46,6 +18,7 @@ int main(int argc, char *argv[]) {
     int value_des = 0;
 
     int use_r = 0, use_g = 0, use_b = 0, use_gray = 0;
+    int num_threads = DEFAULT_THREADS;
 
     int do_inv = 0;
     int do_des = 0;
@@ -91,11 +64,19 @@ int main(int argc, char *argv[]) {
 
         } else if (strcmp(argv[i], "--gray") == 0 && i + 1 < argc) {
             use_gray = atoi(argv[++i]);
+
+        } else if (strcmp(argv[i], "--threads") == 0 && i + 1 < argc) {
+            num_threads = atoi(argv[++i]);
         }
     }
 
     if (strlen(input) == 0 || strlen(effect) == 0) {
         fprintf(stderr, "Faltan argumentos obligatorios.\n");
+        return 1;
+    }
+
+    if (num_threads < 1) {
+        fprintf(stderr, "Numero de threads invalido: %d\n", num_threads);
         return 1;
     }
 
@@ -136,13 +117,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    omp_set_num_threads(NUM_THREADS);
-    print_args(
-        input, effect,
-        output_inv, output_des,
-        value_inv, value_des,
-        use_r, use_g, use_b, use_gray
-    );
+    omp_set_num_threads(num_threads);
 
     const double ST = omp_get_wtime();
 
