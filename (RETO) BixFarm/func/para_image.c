@@ -4,7 +4,7 @@
 #include <omp.h>
 #include "./lib/imgTrans.h"
 
-#define NUM_THREADS 12
+#define NUM_THREADS 1000
 
 static void print_args(
     const char *input,
@@ -148,25 +148,13 @@ int main(int argc, char *argv[]) {
 
     #pragma omp parallel
     {
-        #pragma omp single
-        {
-            printf("[OMP] region paralela iniciada con %d hilos\n", omp_get_num_threads());
-            fflush(stdout);
-        }
-
         #pragma omp sections
         {
             #pragma omp section
             {
                 if (do_inv) {
                     int tid = omp_get_thread_num();
-                    printf("[OMP][T%d] INICIO inv_img_flags -> %s\n", tid, output_inv);
-                    fflush(stdout);
-
                     inv_img_flags(output_inv, input, use_r, use_g, use_b, use_gray, value_inv);
-
-                    printf("[OMP][T%d] FIN inv_img_flags -> %s\n", tid, output_inv);
-                    fflush(stdout);
                 }
             }
 
@@ -174,13 +162,7 @@ int main(int argc, char *argv[]) {
             {
                 if (do_des) {
                     int tid = omp_get_thread_num();
-                    printf("[OMP][T%d] INICIO desenfoque_flags -> %s\n", tid, output_des);
-                    fflush(stdout);
-
                     desenfoque_flags(input, output_des, value_des, use_r, use_g, use_b, use_gray);
-
-                    printf("[OMP][T%d] FIN desenfoque_flags -> %s\n", tid, output_des);
-                    fflush(stdout);
                 }
             }
         }

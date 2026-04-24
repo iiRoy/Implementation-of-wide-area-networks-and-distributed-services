@@ -395,11 +395,11 @@ class MainWindow(QMainWindow):
         if rule.effect == "inv":
             mapping = {
                 "Giro Espejo": 2,
-                "Giro Vertical": 3,
-                "Giro Vertical Espejo": 4,
+                "Giro Vertical": 4,
+                "Giro Vertical Espejo": 3,
                 "Giro espejo": 2,
-                "Giro vertical": 3,
-                "Giro vertical espejo": 4,
+                "Giro vertical": 4,
+                "Giro vertical espejo": 3,
             }
             return mapping[rule.value]
         return int(rule.value)
