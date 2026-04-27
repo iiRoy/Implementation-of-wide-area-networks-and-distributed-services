@@ -4,7 +4,7 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 
-from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtCore import QSize, Qt, QEvent
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import (
     QFileDialog,
@@ -59,6 +59,11 @@ class MainWindow(QMainWindow):
         self._actualizar_label_imagenes_destino()
 
     def _configurar_ui(self):
+
+        self.setAcceptDrops(True)
+        self.ui.listImagenes.setAcceptDrops(True)
+        self.ui.listImagenes.installEventFilter(self)
+
         self.ui.txtTiempoEjecucion.setReadOnly(True)
         self.ui.txtRutaGuardado.setText(str(self.default_output_dir))
         self.ui.txtRutaGuardado.setReadOnly(True)
@@ -67,9 +72,10 @@ class MainWindow(QMainWindow):
         # Abrir selector de carpeta al hacer click en la ruta
         self.ui.txtRutaGuardado.mousePressEvent = self._abrir_selector_ruta_guardado
 
-        self.ui.txtNumberThreads.setMinimum(1)
-        self.ui.txtNumberThreads.setMaximum(1000000000)
-        self.ui.txtNumberThreads.setValue(12)
+        self.ui.txtNumberThreads.setMinimum(100)
+        self.ui.txtNumberThreads.setMaximum(5000)
+        self.ui.txtNumberThreads.setValue(100)
+        self.ui.txtNumberThreads.setSingleStep(100)
 
         self.ui.rulesTable.setColumnCount(4)
         self.ui.rulesTable.setHorizontalHeaderLabels(
@@ -123,30 +129,7 @@ class MainWindow(QMainWindow):
             "Imágenes BMP (*.bmp);;Todos los archivos (*)",
         )
 
-        if not files:
-            return
-
-        nuevos = 0
-        for file_path in files:
-            normalized = str(Path(file_path).resolve())
-            if normalized in self.loaded_images:
-                continue
-
-            self.loaded_images.append(normalized)
-            self.selected_images.append(normalized)
-            self._agregar_item_imagen(normalized)
-            nuevos += 1
-
-        self._actualizar_estado_imagenes()
-        self._actualizar_label_imagenes_destino()
-        self._actualizar_preview_nombre()
-
-        if nuevos == 0:
-            QMessageBox.information(
-                self,
-                "Sin cambios",
-                "Las imágenes seleccionadas ya estaban cargadas.",
-            )
+        self.agregar_imagenes_desde_paths(files)
 
     def _agregar_item_imagen(self, image_path: str):
         path = Path(image_path)
@@ -554,3 +537,56 @@ class MainWindow(QMainWindow):
             self.ui.txtRutaGuardado.setText(ruta)
         if event is not None:
             event.accept()
+
+    def agregar_imagenes_desde_paths(self, files):
+        if not files:
+            return
+
+        nuevos = 0
+
+        for file_path in files:
+            path = Path(file_path).resolve()
+
+            if path.suffix.lower() != ".bmp":
+                continue
+
+            normalized = str(path)
+
+            if normalized in self.loaded_images:
+                continue
+
+            self.loaded_images.append(normalized)
+            self.selected_images.append(normalized)
+            self._agregar_item_imagen(normalized)
+            nuevos += 1
+
+        self._actualizar_estado_imagenes()
+        self._actualizar_label_imagenes_destino()
+        self._actualizar_preview_nombre()
+
+        if nuevos == 0:
+            QMessageBox.information(
+                self,
+                "Sin cambios",
+                "No se agregaron imágenes nuevas. Verifica que sean archivos .bmp.",
+            )
+
+    def eventFilter(self, obj, event):
+        if obj == self.ui.listImagenes:
+            if event.type() == QEvent.Type.DragEnter:
+                if event.mimeData().hasUrls():
+                    event.acceptProposedAction()
+                    return True
+
+            elif event.type() == QEvent.Type.Drop:
+                files = []
+
+                for url in event.mimeData().urls():
+                    if url.isLocalFile():
+                        files.append(url.toLocalFile())
+
+                self.agregar_imagenes_desde_paths(files)
+                event.acceptProposedAction()
+                return True
+
+        return super().eventFilter(obj, event)
