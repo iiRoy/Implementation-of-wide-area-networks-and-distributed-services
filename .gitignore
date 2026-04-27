@@ -1,0 +1,9 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Resultados generados
+**/Resultados/*.bmp
+
+# macOS
+.DS_Store
