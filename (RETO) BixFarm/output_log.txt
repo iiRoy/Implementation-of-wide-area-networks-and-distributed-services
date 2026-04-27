@@ -238,3 +238,99 @@ FunciÃ³n: desenfoque, con /home/rodrigo/Documentos/Github/Implementation-of-wi
 Localidades totales leÃ-das: 8294400
 Localidades totales escritas: 8294400
 -------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP21.bmp
+Localidades totales leÃ-das: 16776192
+Localidades totales escritas: 16776192
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP21.bmp
+Localidades totales leÃ-das: 16776192
+Localidades totales escritas: 16776192
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP20.bmp
+Localidades totales leÃ-das: 16774086
+Localidades totales escritas: 16774086
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP20.bmp
+Localidades totales leÃ-das: 16774086
+Localidades totales escritas: 16774086
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP16.bmp
+Localidades totales leÃ-das: 16776192
+Localidades totales escritas: 16776192
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP16.bmp
+Localidades totales leÃ-das: 16776192
+Localidades totales escritas: 16776192
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP15.bmp
+Localidades totales leÃ-das: 16778319
+Localidades totales escritas: 16778319
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP15.bmp
+Localidades totales leÃ-das: 16778319
+Localidades totales escritas: 16778319
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP14.bmp
+Localidades totales leÃ-das: 16778492
+Localidades totales escritas: 16778492
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP14.bmp
+Localidades totales leÃ-das: 16778492
+Localidades totales escritas: 16778492
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP13.bmp
+Localidades totales leÃ-das: 16776192
+Localidades totales escritas: 16776192
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP13.bmp
+Localidades totales leÃ-das: 16776192
+Localidades totales escritas: 16776192
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP9.bmp
+Localidades totales leÃ-das: 16776192
+Localidades totales escritas: 16776192
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP9.bmp
+Localidades totales leÃ-das: 16776192
+Localidades totales escritas: 16776192
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP5.bmp
+Localidades totales leÃ-das: 16776192
+Localidades totales escritas: 16776192
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP5.bmp
+Localidades totales leÃ-das: 16776192
+Localidades totales escritas: 16776192
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP4.bmp
+Localidades totales leÃ-das: 16776192
+Localidades totales escritas: 16776192
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP4.bmp
+Localidades totales leÃ-das: 16776192
+Localidades totales escritas: 16776192
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP3.bmp
+Localidades totales leÃ-das: 16776123
+Localidades totales escritas: 16776123
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP3.bmp
+Localidades totales leÃ-das: 16776123
+Localidades totales escritas: 16776123
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP23.bmp
+Localidades totales leÃ-das: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP23.bmp
+Localidades totales leÃ-das: 16908288
+Localidades totales escritas: 16908288
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP20.bmp
+Localidades totales leÃ-das: 16774086
+Localidades totales escritas: 16774086
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/rodrigo/Imágenes/Fondos de Pantalla/BMP/WP20.bmp
+Localidades totales leÃ-das: 16774086
+Localidades totales escritas: 16774086
+-------------------------------------
