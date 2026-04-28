@@ -86,18 +86,21 @@ extern void inv_img_flags(
         return;
     }
 
-    for (int j = 0; j < total_pixels; j++) {
-        b = fgetc(image);
-        g = fgetc(image);
-        r = fgetc(image);
+    int row_stride = ((int)ancho * 3 + 3) & ~3;
+    int padding    = row_stride - (int)ancho * 3;
 
-        if (feof(image)) break;
-
-        cambiar_color_flags(&r, &g, &b, use_r, use_g, use_b, use_gray);
-
-        arr_in_b[j] = b;
-        arr_in_g[j] = g;
-        arr_in_r[j] = r;
+    for (int y = 0; y < (int)alto; y++) {
+        for (int x = 0; x < (int)ancho; x++) {
+            b = (unsigned char)fgetc(image);
+            g = (unsigned char)fgetc(image);
+            r = (unsigned char)fgetc(image);
+            cambiar_color_flags(&r, &g, &b, use_r, use_g, use_b, use_gray);
+            int j = y * (int)ancho + x;
+            arr_in_b[j] = b;
+            arr_in_g[j] = g;
+            arr_in_r[j] = r;
+        }
+        for (int p = 0; p < padding; p++) fgetc(image);
     }
 
     switch (inv) {
@@ -159,10 +162,14 @@ extern void inv_img_flags(
     }
 
     // Escritura final secuencial
-    for (int i = 0; i < total_pixels; i++) {
-        fputc(arr_out_b[i], outputImage);
-        fputc(arr_out_g[i], outputImage);
-        fputc(arr_out_r[i], outputImage);
+    for (int y = 0; y < (int)alto; y++) {
+        for (int x = 0; x < (int)ancho; x++) {
+            int i = y * (int)ancho + x;
+            fputc(arr_out_b[i], outputImage);
+            fputc(arr_out_g[i], outputImage);
+            fputc(arr_out_r[i], outputImage);
+        }
+        for (int p = 0; p < padding; p++) fputc(0x00, outputImage);
     }
 
     fclose(image);
