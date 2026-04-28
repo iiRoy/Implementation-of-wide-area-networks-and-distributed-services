@@ -86,20 +86,23 @@ extern void inv_img_flags(
         return;
     }
 
+    // Lee fila por fila, omite bytes de "padding"
     int row_stride = ((int)ancho * 3 + 3) & ~3;
     int padding    = row_stride - (int)ancho * 3;
 
     for (int y = 0; y < (int)alto; y++) {
         for (int x = 0; x < (int)ancho; x++) {
-            b = (unsigned char)fgetc(image);
-            g = (unsigned char)fgetc(image);
-            r = (unsigned char)fgetc(image);
+            b = fgetc(image);
+            g = fgetc(image);
+            r = fgetc(image);
             cambiar_color_flags(&r, &g, &b, use_r, use_g, use_b, use_gray);
             int j = y * (int)ancho + x;
             arr_in_b[j] = b;
             arr_in_g[j] = g;
             arr_in_r[j] = r;
         }
+
+        // Omite bytes de "padding" al final de cada fila
         for (int p = 0; p < padding; p++) fgetc(image);
     }
 
@@ -130,7 +133,7 @@ extern void inv_img_flags(
             #pragma omp parallel for schedule(static)
             for (int y = 0; y < alto; y++) {
                 for (int x = 0; x < ancho; x++) {
-                    int src = (alto - 1 - y) * ancho + x;
+                    int src = (alto - 1 - y) * ancho + (ancho - 1 - x);
                     int dst = y * ancho + x;
                     arr_out_b[dst] = arr_in_b[src];
                     arr_out_g[dst] = arr_in_g[src];
@@ -143,7 +146,7 @@ extern void inv_img_flags(
             #pragma omp parallel for schedule(static)
             for (int y = 0; y < alto; y++) {
                 for (int x = 0; x < ancho; x++) {
-                    int src = (alto - 1 - y) * ancho + (ancho - 1 - x);
+                    int src = (alto - 1 - y) * ancho + x;
                     int dst = y * ancho + x;
                     arr_out_b[dst] = arr_in_b[src];
                     arr_out_g[dst] = arr_in_g[src];
@@ -162,6 +165,7 @@ extern void inv_img_flags(
     }
 
     // Escritura final secuencial
+    // Escribe fila por fila, agregando bytes de "padding" para mantener la alineación BMP
     for (int y = 0; y < (int)alto; y++) {
         for (int x = 0; x < (int)ancho; x++) {
             int i = y * (int)ancho + x;
@@ -169,6 +173,8 @@ extern void inv_img_flags(
             fputc(arr_out_g[i], outputImage);
             fputc(arr_out_r[i], outputImage);
         }
+
+        // Anota bytes de "padding" al final de cada fila
         for (int p = 0; p < padding; p++) fputc(0x00, outputImage);
     }
 

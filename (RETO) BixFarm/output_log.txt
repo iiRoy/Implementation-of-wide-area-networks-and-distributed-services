@@ -462,3 +462,11 @@ FunciÃ³n: desenfoque, con /home/tophat/Documents/TEC/8° Semestre/Implementaci
 Localidades totales leÃ-das: 16908288
 Localidades totales escritas: 16908288
 -------------------------------------
+FunciÃ³n: desenfoque, con /home/tophat/Documents/TEC/8° Semestre/Implementacion de Redes Amplias y Servicios Distribuidos/Proyecto/Implementation-of-wide-area-networks-and-distributed-services/ImageBank/Rodrigo/Fondos de Pantalla/BMP/WP7.bmp
+Localidades totales leÃ-das: 16776230
+Localidades totales escritas: 16776230
+-------------------------------------
+FunciÃ³n: desenfoque, con /home/tophat/Documents/TEC/8° Semestre/Implementacion de Redes Amplias y Servicios Distribuidos/Proyecto/Implementation-of-wide-area-networks-and-distributed-services/ImageBank/Rodrigo/Fondos de Pantalla/BMP/WP7.bmp
+Localidades totales leÃ-das: 16776230
+Localidades totales escritas: 16776230
+-------------------------------------
