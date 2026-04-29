@@ -18,6 +18,7 @@ from ui.ui_pixfarm import Ui_MainWindow
 from gui.dialog_colores import DialogColores
 from gui.dialog_seleccion_imagenes import DialogSeleccionImagenes
 
+MAX_IMAGES = 10
 
 @dataclass(frozen=True)
 class Rule:
@@ -543,8 +544,13 @@ class MainWindow(QMainWindow):
             return
 
         nuevos = 0
+        limite_alcanzado = False
 
         for file_path in files:
+            if len(self.loaded_images) >= MAX_IMAGES:
+                limite_alcanzado = True
+                break
+
             path = Path(file_path).resolve()
 
             if path.suffix.lower() != ".bmp":
@@ -564,12 +570,20 @@ class MainWindow(QMainWindow):
         self._actualizar_label_imagenes_destino()
         self._actualizar_preview_nombre()
 
-        if nuevos == 0:
+        if limite_alcanzado:
+            QMessageBox.warning(
+                self,
+                "Límite alcanzado",
+                f"Solo puedes cargar un máximo de {MAX_IMAGES} imágenes."
+            )
+
+        elif nuevos == 0:
             QMessageBox.information(
                 self,
                 "Sin cambios",
                 "No se agregaron imágenes nuevas. Verifica que sean archivos .bmp.",
             )
+                
 
     def eventFilter(self, obj, event):
         if obj == self.ui.listImagenes:
