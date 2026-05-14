@@ -480,7 +480,10 @@ class MainWindow(QMainWindow):
         )
         output_dir.mkdir(parents=True, exist_ok=True)
 
-        start = time.perf_counter()
+        #start = time.perf_counter()
+        time_proc = 0.0
+        time_io = 0.0
+
         errores = []
         generados = []
 
@@ -491,7 +494,10 @@ class MainWindow(QMainWindow):
                 output_name = self.build_output_name(base_name, rule)
 
                 try:
-                    result = self.run_c_job(image_path, output_name, rule)
+                    #result = self.run_c_job(image_path, output_name, rule)
+                    t0 = time.perf_counter()
+                    result =  self.run_c_job(image_path, output_name, rule)
+                    time_proc += time.perf_counter() - t0
                 except FileNotFoundError as e:
                     QMessageBox.critical(self, "Ejecutable no encontrado", str(e))
                     return
@@ -506,15 +512,19 @@ class MainWindow(QMainWindow):
                     if generated_file.resolve() != final_file.resolve():
                         if final_file.exists():
                             final_file.unlink()
+                        #shutil.move(str(generated_file), str(final_file))
+                        t0 = time.perf_counter()
                         shutil.move(str(generated_file), str(final_file))
+                        time_io += time.perf_counter() - t0                        
                     generados.append(str(final_file))
                 else:
                     errores.append(
                         f"No se encontró el archivo generado para {output_name}"
                     )
 
-        elapsed = time.perf_counter() - start
-        self.ui.txtTiempoEjecucion.setText(f"{elapsed:.4f} s")
+        #elapsed = time.perf_counter() - start
+        #self.ui.txtTiempoEjecucion.setText(f"{elapsed:.4f} s")
+        self.ui.txtTiempoEjecucion.setText(f"proc: {time_proc:.4f} s  |  I/O: {time_io:.4f} s")
 
         if errores:
             QMessageBox.critical(self, "Errores", "\n".join(errores[:10]))
