@@ -470,3 +470,79 @@ FunciÃ³n: desenfoque, con /home/tophat/Documents/TEC/8° Semestre/Implementaci
 Localidades totales leÃ-das: 16776230
 Localidades totales escritas: 16776230
 -------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Alvaro/C1.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Alvaro/C5.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Alvaro/C14.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Abigail/A1.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Abigail/A1.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Abigail/A1.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Abigail/A1.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Alvaro/C17.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Alvaro/C17.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Alvaro/C17.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Alvaro/C17.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Rodrigo/Fotos TEC/TEC11.bmp
+Localidades totales leÃ-das: 16776848
+Localidades totales escritas: 16776848
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Rodrigo/Fotos TEC/TEC11.bmp
+Localidades totales leÃ-das: 16776848
+Localidades totales escritas: 16776848
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Rodrigo/Fotos TEC/TEC11.bmp
+Localidades totales leÃ-das: 16776848
+Localidades totales escritas: 16776848
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Rodrigo/Fotos TEC/TEC11.bmp
+Localidades totales leÃ-das: 16776848
+Localidades totales escritas: 16776848
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Alvaro/C5.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Alvaro/C5.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Alvaro/C5.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
+FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Alvaro/C5.bmp
+Localidades totales leÃ-das: 8294400
+Localidades totales escritas: 8294400
+-------------------------------------
