@@ -66,6 +66,7 @@ class MainWindow(QMainWindow):
         self.ui.listImagenes.installEventFilter(self)
 
         self.ui.txtTiempoEjecucion.setReadOnly(True)
+        self.ui.txtTiempoEnvio.setReadOnly(True)
         self.ui.txtRutaGuardado.setText(str(self.default_output_dir))
         self.ui.txtRutaGuardado.setReadOnly(True)
         self.ui.txtRutaGuardado.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -480,7 +481,8 @@ class MainWindow(QMainWindow):
         )
         output_dir.mkdir(parents=True, exist_ok=True)
 
-        start = time.perf_counter()
+        time_proc = 0.0
+        time_io = 0.0
         errores = []
         generados = []
 
@@ -491,7 +493,9 @@ class MainWindow(QMainWindow):
                 output_name = self.build_output_name(base_name, rule)
 
                 try:
+                    t0 = time.perf_counter()
                     result = self.run_c_job(image_path, output_name, rule)
+                    time_proc += time.perf_counter() - t0
                 except FileNotFoundError as e:
                     QMessageBox.critical(self, "Ejecutable no encontrado", str(e))
                     return
@@ -506,15 +510,17 @@ class MainWindow(QMainWindow):
                     if generated_file.resolve() != final_file.resolve():
                         if final_file.exists():
                             final_file.unlink()
+                        t0 = time.perf_counter()
                         shutil.move(str(generated_file), str(final_file))
+                        time_io += time.perf_counter() - t0
                     generados.append(str(final_file))
                 else:
                     errores.append(
                         f"No se encontró el archivo generado para {output_name}"
                     )
 
-        elapsed = time.perf_counter() - start
-        self.ui.txtTiempoEjecucion.setText(f"{elapsed:.4f} s")
+        self.ui.txtTiempoEjecucion.setText(f"{time_proc:.4f} s")
+        self.ui.txtTiempoEnvio.setText(f"{time_io:.4f} s")
 
         if errores:
             QMessageBox.critical(self, "Errores", "\n".join(errores[:10]))
