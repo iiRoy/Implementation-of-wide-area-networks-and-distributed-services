@@ -1,6 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+
+static uint32_t read_u32_le(const unsigned char *p) {
+    return ((uint32_t)p[0]) |
+           ((uint32_t)p[1] << 8) |
+           ((uint32_t)p[2] << 16) |
+           ((uint32_t)p[3] << 24);
+}
+
+static int32_t read_i32_le(const unsigned char *p) {
+    return (int32_t)read_u32_le(p);
+}
+
+static unsigned char *leer_header_bmp(FILE *image, uint32_t *pixel_offset, int32_t *width, int32_t *height) {
+    unsigned char base_header[54];
+
+    if (fread(base_header, 1, 54, image) != 54) {
+        return NULL;
+    }
+
+    if (base_header[0] != 'B' || base_header[1] != 'M') {
+        return NULL;
+    }
+
+    *pixel_offset = read_u32_le(&base_header[10]);
+    *width = read_i32_le(&base_header[18]);
+    *height = read_i32_le(&base_header[22]);
+
+    if (*pixel_offset < 54 || *width <= 0 || *height == 0) {
+        return NULL;
+    }
+
+    unsigned char *header = (unsigned char *)malloc(*pixel_offset);
+    if (!header) {
+        return NULL;
+    }
+
+    memcpy(header, base_header, 54);
+
+    if (*pixel_offset > 54) {
+        size_t extra = *pixel_offset - 54;
+        if (fread(header + 54, 1, extra, image) != extra) {
+            free(header);
+            return NULL;
+        }
+    }
+
+    return header;
+}
 
 void cambiar_color_flags(
     unsigned char *r,
@@ -38,9 +87,8 @@ extern void inv_img_flags(
 )
 {
     FILE *image, *outputImage;
-    char add_char[80] = "./Resultados/";
-    strcat(add_char, mask);
-    strcat(add_char, ".bmp");
+    char add_char[512];
+    snprintf(add_char, sizeof(add_char), "./Resultados/%s.bmp", mask);
 
     image = fopen(path, "rb");
     outputImage = fopen(add_char, "wb");
@@ -52,17 +100,23 @@ extern void inv_img_flags(
         return;
     }
 
-    long ancho, alto;
+    int32_t ancho_signed, alto_signed;
+    uint32_t pixel_offset;
     unsigned char r, g, b;
-    unsigned char xx[54];
 
-    for (int i = 0; i < 54; i++) {
-        xx[i] = fgetc(image);
-        fputc(xx[i], outputImage);
+    unsigned char *header = leer_header_bmp(image, &pixel_offset, &ancho_signed, &alto_signed);
+    if (!header) {
+        fprintf(stderr, "[inv] Error leyendo header BMP.\n");
+        fclose(image);
+        fclose(outputImage);
+        return;
     }
 
-    ancho = (long)xx[20]*65536 + (long)xx[19]*256 + (long)xx[18];
-    alto  = (long)xx[24]*65536 + (long)xx[23]*256 + (long)xx[22];
+    int ancho = ancho_signed;
+    int alto = alto_signed > 0 ? alto_signed : -alto_signed;
+
+    fwrite(header, 1, pixel_offset, outputImage);
+    free(header);
 
     printf("[inv] ancho=%ld alto=%ld inv=%d\n", ancho, alto, inv);
     fflush(stdout);
@@ -195,7 +249,7 @@ extern void desenfoque_flags(
     int use_gray
 ) {
     FILE *image, *outputImage;
-    char output_path[100];
+    char output_path[512];
     snprintf(output_path, sizeof(output_path), "./Resultados/%s.bmp", name_output);
     image = fopen(input_path, "rb");
     outputImage = fopen(output_path, "wb");
@@ -203,11 +257,23 @@ extern void desenfoque_flags(
         printf("Error abriendo archivos.\n");
         return;
     }
-    unsigned char header[54];
-    fread(header, sizeof(unsigned char), 54, image);
-    fwrite(header, sizeof(unsigned char), 54, outputImage);
-    int width = *(int*)&header[18];
-    int height = *(int*)&header[22];
+    int32_t width_signed, height_signed;
+    uint32_t pixel_offset;
+
+    unsigned char *header = leer_header_bmp(image, &pixel_offset, &width_signed, &height_signed);
+    if (!header) {
+        fprintf(stderr, "[des] Error leyendo header BMP.\n");
+        fclose(image);
+        fclose(outputImage);
+        return;
+    }
+
+    int width = width_signed;
+    int height = height_signed > 0 ? height_signed : -height_signed;
+
+    fwrite(header, 1, pixel_offset, outputImage);
+    free(header);
+
     int row_padded = (width * 3 + 3) & (~3);
     unsigned char** input_rows = (unsigned char**)malloc(height * sizeof(unsigned char*));
     unsigned char** output_rows = (unsigned char**)malloc(height * sizeof(unsigned char*));

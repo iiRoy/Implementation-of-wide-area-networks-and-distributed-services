@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DialogProgreso</class>
+ <widget class="QDialog" name="DialogProgreso">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>550</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>550</width>
+    <height>300</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>550</width>
+    <height>300</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog#DialogProgreso {
+    background-color: #081120;
+    color: #e6edf7;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 11pt;
+}
+
+QLabel {
+    background: transparent;
+    border: none;
+    color: #e6edf7;
+}
+
+QLabel#lblTitulo {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+QLabel#lblEstado {
+    color: #91a4bf;
+    font-size: 11pt;
+}
+
+QLabel#lblPorcentaje {
+    font-size: 13pt;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+QLabel#lblTiempo,
+QLabel#lblUltimoEvento {
+    color: #91a4bf;
+    font-size: 10pt;
+}
+
+QProgressBar {
+    background-color: #0a1423;
+    border: 1px solid #385174;
+    border-radius: 12px;
+    height: 24px;
+    text-align: center;
+}
+
+QProgressBar::chunk {
+    background-color: #4a8cff;
+    border-radius: 4px;
+    margin: 0px;
+}
+
+QPushButton {
+    background-color: #381a1a;
+    border: 1px solid #633232;
+    color: #f0d7d7;
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-weight: 600;
+}
+
+QPushButton:hover {
+    background-color: #22324a;
+}
+
+QPushButton:pressed {
+    background-color: #2d67d0;
+}</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="lblTitulo">
+     <property name="text">
+      <string>Procesando imágenes</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lblEstado">
+     <property name="text">
+      <string>Preparando procesamiento distribuido...</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QProgressBar" name="progressBar">
+     <property name="value">
+      <number>24</number>
+     </property>
+     <property name="textVisible">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lblPorcentaje">
+     <property name="text">
+      <string>0%</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lblTiempo">
+     <property name="text">
+      <string>Tiempo estimado restante: calculando...</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lblUltimoEvento">
+     <property name="text">
+      <string>Esperando inicio de trabajos...</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="btnCancelar">
+     <property name="text">
+      <string>Cancelar</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

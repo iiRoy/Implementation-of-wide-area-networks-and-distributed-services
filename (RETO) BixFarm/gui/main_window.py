@@ -4,7 +4,7 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 
-from PyQt6.QtCore import QSize, Qt, QEvent
+from PyQt6.QtCore import QSize, Qt, QEvent, QProcess, QTimer
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import (
     QFileDialog,
@@ -17,8 +17,9 @@ from ui.ui_pixfarm import Ui_MainWindow
 
 from gui.dialog_colores import DialogColores
 from gui.dialog_seleccion_imagenes import DialogSeleccionImagenes
+from gui.dialog_progreso import DialogProgreso
 
-MAX_IMAGES = 10
+MAX_IMAGES = 600
 
 @dataclass(frozen=True)
 class Rule:
@@ -53,11 +54,31 @@ class MainWindow(QMainWindow):
 
         self.editing_rule_row: int | None = None
 
+        self.mpi_process = None
+        self.progress_dialog = None
+        self.total_jobs = 0
+        self.completed_jobs = 0
+        self.progress_start_time = 0.0
+        self.mpi_stdout_buffer = ""
+        self.mpi_stderr_buffer = ""
+        self.current_log_file = None
+
+        self.progress_timer = None
+        self.last_progress_line = ""
+
+        self.cancel_requested = False
+        self.current_cmd = []
+        self.current_job = None
+
         self._configurar_ui()
         self._conectar_senales()
         self._actualizar_estado_imagenes()
         self._actualizar_preview_nombre()
         self._actualizar_label_imagenes_destino()
+        
+        self.local_jobs = []
+        self.local_job_index = 0
+        self.local_running = False
 
     def _configurar_ui(self):
 
@@ -66,7 +87,6 @@ class MainWindow(QMainWindow):
         self.ui.listImagenes.installEventFilter(self)
 
         self.ui.txtTiempoEjecucion.setReadOnly(True)
-        self.ui.txtTiempoEnvio.setReadOnly(True)
         self.ui.txtRutaGuardado.setText(str(self.default_output_dir))
         self.ui.txtRutaGuardado.setReadOnly(True)
         self.ui.txtRutaGuardado.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -74,10 +94,10 @@ class MainWindow(QMainWindow):
         # Abrir selector de carpeta al hacer click en la ruta
         self.ui.txtRutaGuardado.mousePressEvent = self._abrir_selector_ruta_guardado
 
-        self.ui.txtNumberThreads.setMinimum(100)
-        self.ui.txtNumberThreads.setMaximum(5000)
-        self.ui.txtNumberThreads.setValue(100)
-        self.ui.txtNumberThreads.setSingleStep(100)
+        self.ui.txtNumberThreads.setMinimum(2)
+        self.ui.txtNumberThreads.setMaximum(47)
+        self.ui.txtNumberThreads.setValue(47)
+        self.ui.txtNumberThreads.setSingleStep(2)
 
         self.ui.rulesTable.setColumnCount(4)
         self.ui.rulesTable.setHorizontalHeaderLabels(
@@ -119,6 +139,65 @@ class MainWindow(QMainWindow):
         self.ui.rulesTable.itemSelectionChanged.connect(
             self._cargar_regla_seleccionada_en_editor
         )
+
+    def count_slots_from_machinefile(self, machinefile: Path) -> int:
+        total = 0
+
+        for line in machinefile.read_text().splitlines():
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+
+            slots = 1
+            for part in line.split():
+                if part.startswith("slots="):
+                    slots = int(part.split("=", 1)[1])
+
+            total += slots
+
+        return total
+
+    def build_local_jobs(self, output_dir: Path):
+        jobs = []
+
+        for image_path in self.selected_images:
+            base_name = Path(image_path).stem
+
+            for rule in self.rules:
+                output_name = self.build_output_name(base_name, rule)
+
+                jobs.append({
+                    "image_path": str(image_path),
+                    "output_dir": output_dir,
+                    "output_name": output_name,
+                    "rule": rule,
+                })
+
+        return jobs
+
+    def count_total_jobs(self) -> int:
+        return len(self.selected_images) * len(self.rules)
+    
+    def build_jobs_file(self, jobs_path: Path, output_dir: Path):
+        with jobs_path.open("w", encoding="utf-8") as f:
+            for image_path in self.selected_images:
+                base_name = Path(image_path).stem
+
+                for rule in self.rules:
+                    output_name = self.build_output_name(base_name, rule)
+                    value = self.effect_value_to_c(rule)
+
+                    f.write("\t".join([
+                        str(image_path),
+                        str(output_dir),
+                        output_name,
+                        rule.effect,
+                        str(value),
+                        str(int(rule.use_r)),
+                        str(int(rule.use_g)),
+                        str(int(rule.use_b)),
+                        str(int(rule.use_gray)),
+                    ]) + "\n")
 
     # -----------------------------
     # CARGA Y GESTIÓN DE IMÁGENES
@@ -408,10 +487,15 @@ class MainWindow(QMainWindow):
         preview = self.build_output_name(base_name, rule)
         self.ui.lblPreviewNombre.setText(f"Nombre de salida: {preview}")
 
+
     # -----------------------------
-    # EJECUCIÓN C
+    # EJECUCIÓN MPI / PROGRESO
     # -----------------------------
+
     def effect_value_to_c(self, rule: Rule):
+        """
+        Convierte el valor visible de la regla a lo que espera el código C.
+        """
         if rule.effect == "inv":
             mapping = {
                 "Giro Espejo": 2,
@@ -424,50 +508,16 @@ class MainWindow(QMainWindow):
             return mapping[rule.value]
         return int(rule.value)
 
-    def run_c_job(self, image_path: str, output_name: str, rule: Rule):
-        executable = self.project_root / "func" / "para_image"
-
-        if not executable.exists():
-            raise FileNotFoundError(
-                f"No se encontró el ejecutable en: {executable}\n"
-                "Compílalo primero, por ejemplo:\n"
-                "gcc func/para_image.c -o func/para_image -fopenmp"
-            )
-
-        num_threads = int(self.ui.txtNumberThreads.value())
-
-        cmd = [
-            str(executable),
-            "--input",
-            str(image_path),
-            "--output",
-            output_name,
-            "--effect",
-            rule.effect,
-            "--value",
-            str(self.effect_value_to_c(rule)),
-            "--r",
-            str(int(rule.use_r)),
-            "--g",
-            str(int(rule.use_g)),
-            "--b",
-            str(int(rule.use_b)),
-            "--gray",
-            str(int(rule.use_gray)),
-            "--threads",
-            str(num_threads),
-        ]
-
-        result = subprocess.run(
-            cmd,
-            cwd=self.project_root,
-            capture_output=True,
-            text=True,
-        )
-
-        return result
-
     def ejecutar_trabajos(self):
+        """
+        Ejecuta SOLO en modo distribuido por red usando MPI.
+
+        Flujo:
+            1. La GUI genera jobs.tsv.
+            2. mpiexec lanza func/para_image_mpi en pcA/pcB/pcC.
+            3. para_image_mpi reparte trabajos dinámicamente.
+            4. La GUI lee stdout/stderr en vivo y actualiza el progreso.
+        """
         if not self.rules:
             QMessageBox.warning(self, "Aviso", "No hay reglas para ejecutar.")
             return
@@ -476,59 +526,239 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, "Aviso", "No hay imágenes seleccionadas.")
             return
 
-        output_dir = Path(
-            self.ui.txtRutaGuardado.text().strip() or self.default_output_dir
-        )
+        output_dir = Path(self.ui.txtRutaGuardado.text().strip() or self.default_output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
 
-        time_proc = 0.0
-        time_io = 0.0
-        errores = []
-        generados = []
+        machinefile = Path.home() / "machinefile"
+        if not machinefile.exists():
+            QMessageBox.critical(self, "Error", f"No existe machinefile: {machinefile}")
+            return
 
-        for image_path in self.selected_images:
-            base_name = Path(image_path).stem
+        total_slots = self.count_slots_from_machinefile(machinefile)
+        virtual_threads = int(self.ui.txtNumberThreads.value())
 
-            for rule in self.rules:
-                output_name = self.build_output_name(base_name, rule)
+        if total_slots < 2:
+            QMessageBox.critical(
+                self,
+                "Configuración MPI inválida",
+                "Necesitas al menos 2 procesos MPI: 1 master y 1 worker.",
+            )
+            return
 
-                try:
-                    t0 = time.perf_counter()
-                    result = self.run_c_job(image_path, output_name, rule)
-                    time_proc += time.perf_counter() - t0
-                except FileNotFoundError as e:
-                    QMessageBox.critical(self, "Ejecutable no encontrado", str(e))
-                    return
+        jobs_file = self.project_root / "jobs.tsv"
+        self.build_jobs_file(jobs_file, output_dir)
 
-                if result.returncode != 0:
-                    errores.append(result.stderr.strip() or f"Error con {output_name}")
-                    continue
+        executable = self.project_root / "func" / "para_image_mpi"
+        if not executable.exists():
+            QMessageBox.critical(
+                self,
+                "Ejecutable no encontrado",
+                f"No existe: {executable}\nCompila con build_ui.sh.",
+            )
+            return
 
-                generated_file = self.project_root / "Resultados" / f"{output_name}.bmp"
-                if generated_file.exists():
-                    final_file = output_dir / generated_file.name
-                    if generated_file.resolve() != final_file.resolve():
-                        if final_file.exists():
-                            final_file.unlink()
-                        t0 = time.perf_counter()
-                        shutil.move(str(generated_file), str(final_file))
-                        time_io += time.perf_counter() - t0
-                    generados.append(str(final_file))
-                else:
-                    errores.append(
-                        f"No se encontró el archivo generado para {output_name}"
-                    )
+        self.total_jobs = self.count_total_jobs()
+        self.completed_jobs = 0
+        self.progress_start_time = time.perf_counter()
+        self.mpi_stdout_buffer = ""
+        self.mpi_stderr_buffer = ""
+        self.current_log_file = self.project_root / "mpi_run.log"
+        self.last_progress_line = "Iniciando procesamiento distribuido..."
+        self.cancel_requested = False
+        self.current_cmd = []
+        self.current_job = None
+        self.local_running = False
 
-        self.ui.txtTiempoEjecucion.setText(f"{time_proc:.4f} s")
-        self.ui.txtTiempoEnvio.setText(f"{time_io:.4f} s")
+        cmd = [
+            "mpiexec",
+            "--bind-to", "none",
+            "--mca", "btl_tcp_if_include", "192.168.133.0/24",
+            "--mca", "oob_tcp_if_include", "192.168.133.0/24",
+            "--tag-output",
+            "-n", str(total_slots),
+            "--hostfile", str(machinefile),
+            str(executable),
+            "--jobs", str(jobs_file),
+            "--threads", str(virtual_threads),
+        ]
+        self.current_cmd = cmd
 
-        if errores:
-            QMessageBox.critical(self, "Errores", "\n".join(errores[:10]))
-        else:
+        self.progress_dialog = DialogProgreso(self)
+        self.progress_dialog.ui.btnCancelar.clicked.connect(self.cancelar_mpi)
+        self.progress_dialog.show()
+
+        self.iniciar_timer_progreso()
+        self.actualizar_progreso_mpi(self.last_progress_line)
+        self.btn_estado_ejecucion(False)
+
+        self.mpi_stdout_buffer += "COMANDO MPI:\n" + " ".join(cmd) + "\n\nSTDOUT:\n"
+
+        self.mpi_process = QProcess(self)
+        self.mpi_process.setWorkingDirectory(str(self.project_root))
+        self.mpi_process.setProgram(cmd[0])
+        self.mpi_process.setArguments(cmd[1:])
+        self.mpi_process.readyReadStandardOutput.connect(self.leer_stdout_mpi)
+        self.mpi_process.readyReadStandardError.connect(self.leer_stderr_mpi)
+        self.mpi_process.finished.connect(self.mpi_finalizado)
+        self.mpi_process.start()
+
+    def mpi_finalizado(self, exit_code, exit_status):
+        elapsed = time.perf_counter() - self.progress_start_time
+        self.detener_timer_progreso()
+
+        self.ui.txtTiempoEjecucion.setText(f"{elapsed:.4f} s")
+
+        if self.current_log_file is not None:
+            self.current_log_file.write_text(
+                self.mpi_stdout_buffer + "\n\nSTDERR:\n" + self.mpi_stderr_buffer,
+                encoding="utf-8",
+            )
+
+        self.btn_estado_ejecucion(True)
+        log_text = f"\n\nLog completo:\n{self.current_log_file}"
+
+        if self.cancel_requested:
+            if self.progress_dialog is not None:
+                self.progress_dialog.close()
             QMessageBox.information(
                 self,
-                "Éxito",
-                f"Se procesaron correctamente {len(generados)} archivo(s).",
+                "Cancelado",
+                f"Procesamiento cancelado por el usuario.\n"
+                f"Transformaciones procesadas: {self.completed_jobs}/{self.total_jobs}\n"
+                f"Tiempo total: {elapsed:.2f} s" + log_text,
+            )
+            return
+
+        if exit_code != 0:
+            if self.progress_dialog is not None:
+                self.progress_dialog.close()
+            QMessageBox.critical(
+                self,
+                "Error MPI",
+                f"mpiexec terminó con código: {exit_code}\n\n"
+                f"Comando:\n{' '.join(self.current_cmd)}\n\n"
+                f"STDERR reciente:\n{(self.mpi_stderr_buffer or 'Sin stderr')[-2500:]}\n\n"
+                f"STDOUT reciente:\n{(self.mpi_stdout_buffer or 'Sin stdout')[-2500:]}"
+                + log_text,
+            )
+            return
+
+        if self.progress_dialog is not None:
+            self.progress_dialog.actualizar(
+                completadas=self.total_jobs,
+                total=self.total_jobs,
+                elapsed=elapsed,
+                eta=0.0,
+                ultimo_evento="Procesamiento distribuido terminado correctamente.",
+            )
+            self.progress_dialog.close()
+
+        QMessageBox.information(
+            self,
+            "Éxito",
+            f"Procesamiento distribuido terminado correctamente.\n"
+            f"Transformaciones procesadas: {self.completed_jobs}/{self.total_jobs}\n"
+            f"Tiempo total: {elapsed:.2f} s" + log_text,
+        )
+
+    def iniciar_timer_progreso(self):
+        """
+        Actualiza tiempo transcurrido y ETA cada segundo.
+        No incrementa completed_jobs.
+        """
+        self.detener_timer_progreso()
+        self.progress_timer = QTimer(self)
+        self.progress_timer.timeout.connect(self.actualizar_progreso_mpi)
+        self.progress_timer.start(1000)
+
+    def detener_timer_progreso(self):
+        if self.progress_timer is not None:
+            self.progress_timer.stop()
+            self.progress_timer = None
+
+    def btn_estado_ejecucion(self, habilitado: bool):
+        self.ui.btnEjecutarPrograma.setEnabled(habilitado)
+        self.ui.btnCargarImagenes.setEnabled(habilitado)
+        self.ui.btnEliminarImagen.setEnabled(habilitado)
+        self.ui.btnLimpiarLista.setEnabled(habilitado)
+        self.ui.btnAgregarRegla.setEnabled(habilitado)
+        self.ui.btnEditarRegla.setEnabled(habilitado)
+        self.ui.btnEliminarRegla.setEnabled(habilitado)
+
+    def leer_stdout_mpi(self):
+        if self.mpi_process is None:
+            return
+        data = bytes(self.mpi_process.readAllStandardOutput()).decode("utf-8", errors="replace")
+        self.mpi_stdout_buffer += data
+        for line in data.splitlines():
+            self.procesar_linea_mpi(line)
+
+    def leer_stderr_mpi(self):
+        if self.mpi_process is None:
+            return
+        data = bytes(self.mpi_process.readAllStandardError()).decode("utf-8", errors="replace")
+        self.mpi_stderr_buffer += data
+        for line in data.splitlines():
+            self.procesar_linea_mpi(line)
+
+    def procesar_linea_mpi(self, line: str):
+        """
+        Cuenta trabajos terminados desde stdout/stderr.
+
+        para_image_mpi imprime:
+            [rank X][host Y] FIN output=...
+        """
+        line = line.strip()
+        if not line:
+            return
+
+        if " FIN " in line or "] FIN " in line or " OK " in line:
+            if self.completed_jobs < self.total_jobs:
+                self.completed_jobs += 1
+            self.actualizar_progreso_mpi(line)
+
+    def actualizar_progreso_mpi(self, ultima_linea: str = ""):
+        if self.progress_dialog is None:
+            return
+
+        if ultima_linea:
+            self.last_progress_line = ultima_linea
+
+        elapsed = time.perf_counter() - self.progress_start_time
+
+        MIN_JOBS_FOR_ETA = 5
+        if self.completed_jobs >= MIN_JOBS_FOR_ETA:
+            avg_time_per_job = elapsed / self.completed_jobs
+            remaining_jobs = max(self.total_jobs - self.completed_jobs, 0)
+            eta = avg_time_per_job * remaining_jobs
+            if remaining_jobs > 0 and eta < 1.0:
+                eta = 1.0
+        else:
+            eta = None
+
+        self.progress_dialog.actualizar(
+            completadas=self.completed_jobs,
+            total=self.total_jobs,
+            elapsed=elapsed,
+            eta=eta,
+            ultimo_evento=self.last_progress_line,
+        )
+
+    def cancelar_mpi(self):
+        self.cancel_requested = True
+        self.detener_timer_progreso()
+
+        if self.mpi_process is not None:
+            self.mpi_process.kill()
+
+        if self.progress_dialog is not None:
+            elapsed = time.perf_counter() - self.progress_start_time
+            self.progress_dialog.actualizar(
+                completadas=self.completed_jobs,
+                total=self.total_jobs,
+                elapsed=elapsed,
+                eta=0.0,
+                ultimo_evento="Cancelando procesamiento...",
             )
 
     # -----------------------------

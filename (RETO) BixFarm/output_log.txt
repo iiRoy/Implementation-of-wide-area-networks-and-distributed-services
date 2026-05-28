@@ -546,3 +546,43 @@ FunciÃ³n: desenfoque, con /run/media/rodrigo/KINGSTON/Alvaro/C5.bmp
 Localidades totales leÃ-das: 8294400
 Localidades totales escritas: 8294400
 -------------------------------------
+FunciÃ³n: desenfoque, con /mnt/data/Tec/Semestre 8/Redes distribuidas/Emanuel/Implementation-of-wide-area-networks-and-distributed-services/ImageBank/Humberto/D1.bmp
+Localidades totales leÃ-das: 27735000
+Localidades totales escritas: 27735000
+-------------------------------------
+FunciÃ³n: desenfoque, con /mnt/data/Tec/Semestre 8/Redes distribuidas/Emanuel/Implementation-of-wide-area-networks-and-distributed-services/ImageBank/Humberto/D2.bmp
+Localidades totales leÃ-das: 15676152
+Localidades totales escritas: 15676152
+-------------------------------------
+FunciÃ³n: desenfoque, con /mnt/data/Tec/Semestre 8/Redes distribuidas/Emanuel/Implementation-of-wide-area-networks-and-distributed-services/ImageBank/Humberto/D3.bmp
+Localidades totales leÃ-das: 32169240
+Localidades totales escritas: 32169240
+-------------------------------------
+FunciÃ³n: desenfoque, con /mnt/data/Tec/Semestre 8/Redes distribuidas/Emanuel/Implementation-of-wide-area-networks-and-distributed-services/ImageBank/Humberto/D4.bmp
+Localidades totales leÃ-das: 16776192
+Localidades totales escritas: 16776192
+-------------------------------------
+FunciÃ³n: desenfoque, con /mnt/data/Tec/Semestre 8/Redes distribuidas/Emanuel/Implementation-of-wide-area-networks-and-distributed-services/ImageBank/Humberto/D5.bmp
+Localidades totales leÃ-das: 15980544
+Localidades totales escritas: 15980544
+-------------------------------------
+FunciÃ³n: desenfoque, con /mnt/data/Tec/Semestre 8/Redes distribuidas/Emanuel/Implementation-of-wide-area-networks-and-distributed-services/ImageBank/Humberto/D1.bmp
+Localidades totales leÃ-das: 27735000
+Localidades totales escritas: 27735000
+-------------------------------------
+FunciÃ³n: desenfoque, con /mnt/data/Tec/Semestre 8/Redes distribuidas/Emanuel/Implementation-of-wide-area-networks-and-distributed-services/ImageBank/Humberto/D2.bmp
+Localidades totales leÃ-das: 15676152
+Localidades totales escritas: 15676152
+-------------------------------------
+FunciÃ³n: desenfoque, con /mnt/data/Tec/Semestre 8/Redes distribuidas/Emanuel/Implementation-of-wide-area-networks-and-distributed-services/ImageBank/Humberto/D3.bmp
+Localidades totales leÃ-das: 32169240
+Localidades totales escritas: 32169240
+-------------------------------------
+FunciÃ³n: desenfoque, con /mnt/data/Tec/Semestre 8/Redes distribuidas/Emanuel/Implementation-of-wide-area-networks-and-distributed-services/ImageBank/Humberto/D4.bmp
+Localidades totales leÃ-das: 16776192
+Localidades totales escritas: 16776192
+-------------------------------------
+FunciÃ³n: desenfoque, con /mnt/data/Tec/Semestre 8/Redes distribuidas/Emanuel/Implementation-of-wide-area-networks-and-distributed-services/ImageBank/Humberto/D5.bmp
+Localidades totales leÃ-das: 15980544
+Localidades totales escritas: 15980544
+-------------------------------------
