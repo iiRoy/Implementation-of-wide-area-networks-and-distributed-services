@@ -836,7 +836,18 @@ class Ui_MainWindow(object):
 "<tr><td style=\"padding:4px 14px;\"><span style=\" font-family:\'Adwaita Sans\'; font-weight:700;\">Píxeles totales procesados</span></td><td style=\"padding:4px 14px;\">5.35 × 10⁹ px</td></tr>\n"
 "<tr><td style=\"padding:4px 14px;\"><span style=\" font-family:\'Adwaita Sans\'; font-weight:700;\">Tiempo total de ejecución</span></td><td style=\"padding:4px 14px;\">128.7242 s</td></tr>\n"
 "<tr><td style=\"padding:4px 14px;\"><span style=\" font-family:\'Adwaita Sans\'; font-weight:700;\">Throughput del sistema</span></td><td style=\"padding:4px 14px;\">4.16 × 10⁷ px/s</td></tr>\n"
-"</table></body></html>"))
+"</table>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Adwaita Sans\';\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Adwaita Sans\'; font-weight:700;\">Comparativa de Costo Anual: Granja Propia vs AWS</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Adwaita Sans\';\"><br /></p>\n"
+"<table border=\"1\" style=\"border-collapse:collapse; font-family:\'Adwaita Sans\'; font-size:11pt;\">\n"
+"<tr><td style=\"padding:4px 14px;\"><span style=\" font-family:\'Adwaita Sans\'; font-weight:700;\">Granja propia (electricidad + amortización)</span></td><td style=\"padding:4px 14px;\">$14,419 MXN/año</td></tr>\n"
+"<tr><td style=\"padding:4px 14px;\"><span style=\" font-family:\'Adwaita Sans\'; font-weight:700;\">Servicio AWS 3× m8g.2xlarge</span></td><td style=\"padding:4px 14px;\">$62,052.60 MXN/año</td></tr>\n"
+"<tr><td style=\"padding:4px 14px;\"><span style=\" font-family:\'Adwaita Sans\'; font-weight:700;\">Diferencia</span></td><td style=\"padding:4px 14px;\">AWS es 4.3× más costoso</td></tr>\n"
+"</table>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Adwaita Sans\';\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Adwaita Sans\';\">Una granja local resulta más rentable para cargas de trabajo predecibles, siendo aproximadamente 4.3× más económica que AWS en operación anual.</span></p>\n"
+"</body></html>"))
         self.lblEquipo.setText(_translate("MainWindow", "Información del Equipo"))
         self.txtEquipo.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
